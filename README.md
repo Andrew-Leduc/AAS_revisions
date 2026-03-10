@@ -1,10 +1,17 @@
 # AAS Revisions
 
-Analysis of the **Rate of Amino Acid Substitution (RAAS)** — quantifying how frequently Substituted Amino Acid Peptides (SAAPs) occur relative to their cognate Base Peptides (BPs) using DIA-MS data.
+Revision analyses for **"Alternate RNA decoding results in stable and abundant proteins in mammals"**
+Tsour, Machne, Leduc et al. — [bioRxiv 2024](https://doi.org/10.1101/2024.08.26.609665)
+
+---
 
 ## Overview
 
-Mistranslation during protein synthesis produces peptides with single amino acid substitutions (SAAPs). The **RAAS** is computed as the MS1 intensity of a SAAP divided by the intensity of its BP (the same tryptic peptide carrying the reference amino acid). A higher RAAS indicates a higher rate of substitution at that position.
+Non-standard translation produces peptides carrying single amino acid substitutions (**SAAPs** — Substituted Amino Acid Peptides) alongside the canonical reference peptide (**BP** — Base Peptide). The **RAAS** (Rate of Amino Acid Substitution) is quantified as the MS1 intensity of a SAAP divided by that of its BP. A higher RAAS indicates more frequent substitution at that site.
+
+The original study identified >60,000 fragmentation spectra representing 8,801 unique substitution sites across 1,782 genes from >1,000 human samples. Key findings include: hundreds of SAAPs are more abundant than their canonical BPs, substitution rates are shaped by protein stability and codon usage, and patterns show tissue- and cancer-specificity conserved between human and mouse.
+
+These analyses extend the study by examining how protein degradation pathways affect SAAP accumulation in iPSC-derived neurons and mouse brain.
 
 The analysis covers two datasets:
 
