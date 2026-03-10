@@ -1,10 +1,10 @@
 # AAS Revisions
 
-Analysis of **Ribosome-Associated Amino acid Substitutions (RAAS)** — quantifying the abundance of Single Amino Acid Polymorphism peptides (SAAPs) relative to their reference Background Peptides (BPs) using DIA-MS data.
+Analysis of the **Rate of Amino Acid Substitution (RAAS)** — quantifying how frequently Substituted Amino Acid Peptides (SAAPs) occur relative to their cognate Base Peptides (BPs) using DIA-MS data.
 
 ## Overview
 
-Mistranslation during protein synthesis produces peptides with single amino acid substitutions. We quantify these using the **RAAS ratio**: the MS1 intensity of a SAAP divided by the intensity of its cognate BP (same protein, same tryptic peptide, reference amino acid). A higher RAAS indicates a more abundant substitution.
+Mistranslation during protein synthesis produces peptides with single amino acid substitutions (SAAPs). The **RAAS** is computed as the MS1 intensity of a SAAP divided by the intensity of its BP (the same tryptic peptide carrying the reference amino acid). A higher RAAS indicates a higher rate of substitution at that position.
 
 The analysis covers two datasets:
 
