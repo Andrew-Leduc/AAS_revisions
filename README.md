@@ -18,7 +18,7 @@ The analysis covers two datasets:
 | Dataset | Notebook | Searched data |
 |---------|----------|---------------|
 | iNeuron (iPSC-derived neurons) | `Analysis/iNeuron.ipynb` | Google Drive — see below |
-| Mouse Brain | `Analysis/MouseBrain.ipynb` | TBD |
+| Mouse Brain | `Analysis/MouseBrain.ipynb` | Google Drive — see below |
 
 ---
 
@@ -47,6 +47,27 @@ DIA-NN output in `.parquet` format (~2.4M rows, 71 columns).
 
 ---
 
+## Mouse Brain Experiment
+
+Mouse brain tissue from **young and old** animals was profiled by TMT10-based quantitative proteomics (FragPipe search) to examine whether SAAP abundance changes with age.
+
+| Group | TMT channels (placeholder — update once annotation confirmed) |
+|-------|---------------------------------------------------------------|
+| Young | 126, 127N, 127C, 128N, 128C |
+| Old   | 129N, 129C, 130N, 130C, 131N |
+
+### Raw data path (Google Drive)
+```
+My Drive/MS/Users/aleduc/AAS_rev/PSM_all.tsv
+```
+Full local path:
+```
+/Users/andrewleduc/Library/CloudStorage/GoogleDrive-research@slavovlab.net/My Drive/MS/Users/aleduc/AAS_rev/PSM_all.tsv
+```
+FragPipe PSM output in `.tsv` format (~255k rows). TMT intensities are in columns `Intensity mouse_brain_1_{channel}`.
+
+---
+
 ## Repository Structure
 
 ```
@@ -61,6 +82,7 @@ AAS_revisions/
     ├── neuron_meta.csv                       # Run-level metadata (condition, timepoint)
     ├── high_quality_SAAPs.xlsx               # Curated high-confidence SAAP list
     └── SILAC.xlsx                            # SILAC-derived degradation rates per peptide
+    └── output_MTP_cl_fp.fasta                # Mouse brain SAAP search library (MTP_ + new_peptide entries)
 ```
 
 ---
@@ -74,3 +96,16 @@ AAS_revisions/
 5. **Filter** to high-confidence SAAPs: peptides where SAAP degrades ≥2× more slowly than BP (from SILAC data) — stabilised SAAPs are expected to accumulate
 6. **RAAS per condition**: beeswarm plot of mean log10(RAAS) per SAAP per condition with median overlay
 7. **Normalised RAAS**: per-SAAP mean subtracted across conditions to highlight condition-driven shifts
+8. **RAAS fold change vs degradation**: scatter of RAAS FC (Both vs DMSO) against SILAC degradation FC, coloured by BP degradation rate
+
+---
+
+## Analysis Pipeline (Mouse Brain)
+
+1. **Build SAAP set** from fasta: collect all `new_peptide` and `MTP_` entries as SAAP sequences
+2. **Load PSM** (FragPipe `PSM_all.tsv`); split rows into SAAP and canonical sets
+3. **SAAP→BP mapping** via 1-AA Hamming matching: for each SAAP, find the canonical peptide of equal length differing by exactly one amino acid
+4. **Sum TMT intensities** per peptide across PSMs; compute RAAS = SAAP / BP per TMT channel
+5. **RAAS by age**: swarmplot of mean log10(RAAS) per SAAP per age group (Young / Old) with median overlay
+6. **Normalised RAAS**: per-SAAP mean subtracted across channels; boxplot by age group
+7. **Volcano plot**: Welch t-test (Old vs Young) per SAAP using per-channel replicates; x = log10 fold change, y = −log10(p-value)
